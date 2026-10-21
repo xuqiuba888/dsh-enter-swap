@@ -1,11 +1,9 @@
 # dsh-enter-swap
 
+中文 | [English](README.en.md)
+
 DSH（DeepSeek Harness）Web 插件：**输入框 Enter = 换行，Shift+Enter = 发送**。
 极简、零依赖、无设置页、行为固定，装完即用。
-
-A minimal DSH web plugin that swaps the composer keys: **Enter inserts a
-newline, Shift+Enter sends.** Zero dependencies, no settings page, hardcoded
-behavior — install and go.
 
 ## 功能
 
@@ -49,8 +47,9 @@ dsh plugin --profile web remove dsh-enter-swap   # 卸载，刷新即回原生
 - 在 document 捕获阶段监听 `keydown`，仅当目标位于输入框
   （`[data-composer-input="true"]`）内才处理
 - 手势判定：Alt/Ctrl/Cmd 一律放行；`isComposing` / keyCode 229 放行；
-  检测到挂载在 `<body>` 直下的 portal 菜单（`role="menu" / "listbox"`，
-  即斜杠/@候选弹层）时放行，Enter 照常选中菜单项
+  检测到挂载在 `<body>` 直下且**可见**的 portal 菜单（`role="menu" /
+  "listbox"`，即斜杠/@候选弹层）时放行，Enter 照常选中菜单项——隐藏的
+  残留弹层（如新开会话后的工作区选择器）不算菜单开着
 - 命中时 `preventDefault + stopPropagation`，再把互换后的手势以合成
   KeyboardEvent 派发回引擎——**语义（发送/排队/换行）仍由引擎自己决定**
 - Client bundle 为纯 JS，`__ModuleLoader__` 工厂格式，无需构建步骤
