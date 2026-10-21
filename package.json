@@ -1,0 +1,21 @@
+{
+  "name": "dsh-enter-swap",
+  "description": "DSH web plugin: swap the composer keys - Enter inserts a newline, Shift+Enter sends. Ctrl/Cmd+Enter, Alt+Enter, IME composition and open menus keep native behavior.",
+  "version": "0.1.1",
+  "license": "MIT",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./client/client.js",
+    "./package.json": "./package.json"
+  },
+  "files": ["lib", "client", "cordis.patch.yml", "README.md"],
+  "engines": { "node": ">=20" },
+  "keywords": ["dsh", "deepseek-harness", "dsh-plugin", "composer", "keybinding", "enter"],
+  "dsh": {
+    "compatibility": { "node": ">=20" },
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": { "platform": "web" }
+  }
+}

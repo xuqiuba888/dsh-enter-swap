@@ -1,0 +1,6 @@
+# dsh-enter-swap layer: mounts the browser half that swaps Enter/Shift+Enter.
+# config stays empty on purpose - there is nothing to configure.
+- insert:
+    - id: enter-swap
+      name: dsh-enter-swap
+      config: {}
