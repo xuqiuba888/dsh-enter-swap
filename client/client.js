@@ -57,6 +57,76 @@ window.__ModuleLoader__.load({
       })
     }
 
+    /**
+     * Hint badge pinned to the composer's bottom-right corner:
+     * [Shift+Enter 发送消息] [Enter 换行]. pointer-events:none, theme-neutral
+     * grays, re-anchored on resize/scroll/typing growth and re-attached if the
+     * engine remounts the composer (SPA navigation).
+     */
+    function mountHint() {
+      const BADGE_ID = 'dsh-enter-swap-hint'
+      const style = document.createElement('style')
+      style.id = 'dsh-enter-swap-hint-style'
+      style.textContent = `
+#${BADGE_ID} { position: fixed; z-index: 2147483000; display: flex; gap: 4px;
+  pointer-events: none; opacity: .78; font-size: 11px; line-height: 16px;
+  font-family: system-ui, sans-serif; }
+#${BADGE_ID} span { padding: 1px 7px; border-radius: 999px; white-space: nowrap;
+  background: rgba(127,127,127,.13); color: rgba(127,127,127,.95);
+  border: 1px solid rgba(127,127,127,.28); }`
+      document.head.appendChild(style)
+
+      const badge = document.createElement('div')
+      badge.id = BADGE_ID
+      const chipSend = document.createElement('span')
+      chipSend.textContent = 'Shift+Enter 发送消息'
+      const chipNewline = document.createElement('span')
+      chipNewline.textContent = 'Enter 换行'
+      badge.appendChild(chipSend)
+      badge.appendChild(chipNewline)
+      badge.style.display = 'none'
+      document.body.appendChild(badge)
+
+      let queued = false
+      const position = () => {
+        queued = false
+        const composer = document.querySelector(COMPOSER_SELECTOR)
+        if (!composer || !composer.isConnected) { badge.style.display = 'none'; return }
+        const r = composer.getBoundingClientRect()
+        if (r.width === 0 || r.height === 0) { badge.style.display = 'none'; return }
+        if (!badge.isConnected) document.body.appendChild(badge)
+        badge.style.display = ''
+        const br = badge.getBoundingClientRect()
+        badge.style.left = Math.round(r.right - br.width - 8) + 'px'
+        badge.style.top = Math.round(r.bottom - br.height - 5) + 'px'
+      }
+      const schedule = () => {
+        if (queued) return
+        queued = true
+        requestAnimationFrame(position)
+      }
+
+      const onResize = () => schedule()
+      const onScroll = () => schedule()
+      window.addEventListener('resize', onResize)
+      window.addEventListener('scroll', onScroll, { capture: true, passive: true })
+
+      const observer = new MutationObserver(schedule)
+      observer.observe(document.body, { childList: true, subtree: true })
+
+      const timer = setInterval(schedule, 600)
+      schedule()
+
+      return () => {
+        window.removeEventListener('resize', onResize)
+        window.removeEventListener('scroll', onScroll, { capture: true })
+        observer.disconnect()
+        clearInterval(timer)
+        badge.remove()
+        style.remove()
+      }
+    }
+
     function apply() {
       let reentrant = false
       const onKeyDown = (event) => {
@@ -79,7 +149,11 @@ window.__ModuleLoader__.load({
         }
       }
       document.addEventListener('keydown', onKeyDown, true)
-      return () => document.removeEventListener('keydown', onKeyDown, true)
+      const disposeHint = mountHint()
+      return () => {
+        document.removeEventListener('keydown', onKeyDown, true)
+        disposeHint()
+      }
     }
 
     return { name: 'enter-swap', inject: [], apply }
