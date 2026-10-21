@@ -9,8 +9,8 @@ page, hardcoded behavior — install and go.
 ## Features
 
 - **Enter → newline; Shift+Enter → send**
-- **Persistent keymap badge pinned to the composer's bottom-right corner:
-  〔Shift+Enter 发送消息〕〔Enter 换行〕** (since 0.1.2; never intercepts the
+- **Persistent keymap chips in the composer tool bar, left of the model selector:
+  〔Shift+Enter 发送消息〕〔Enter 换行〕** （since 0.1.2; moved to the native engine slot in 0.1.4 — never overlaps typed text, never intercepts the
   mouse, theme-neutral grays, follows the composer as it grows or remounts)
 - Ctrl/Cmd+Enter (native accelerated delivery) and Alt+Enter stay native
 - IME composition is never intercepted (Chinese/Japanese/Korean input safe)

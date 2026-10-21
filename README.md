@@ -8,7 +8,7 @@ DSH（DeepSeek Harness）Web 插件：**输入框 Enter = 换行，Shift+Enter =
 ## 功能
 
 - **Enter → 换行；Shift+Enter → 发送**
-- **输入框右下角常驻键位徽标：〔Shift+Enter 发送消息〕〔Enter 换行〕**（0.1.2 起；不拦截鼠标，主题中性灰，随输入框伸缩自动跟随）
+- **输入框工具栏（模型选择器左侧）常驻键位胶囊：〔Shift+Enter 发送消息〕〔Enter 换行〕**（0.1.2 起，0.1.4 起改挂引擎原生插槽，不遮挡正文）
 - Ctrl/Cmd+Enter（原生加速投递）、Alt+Enter 保持原生
 - 中文输入法组词过程不拦截（IME 组帧放行）
 - 斜杠命令 / @提及候选菜单打开时，Enter 照常选中菜单项
