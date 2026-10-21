@@ -40,5 +40,13 @@
     "client": {
       "platform": "web"
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xuqiuba888/dsh-enter-swap.git"
+  },
+  "homepage": "https://github.com/xuqiuba888/dsh-enter-swap",
+  "bugs": {
+    "url": "https://github.com/xuqiuba888/dsh-enter-swap/issues"
   }
 }

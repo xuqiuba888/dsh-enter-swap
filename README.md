@@ -18,7 +18,7 @@ behavior — install and go.
 ## 安装
 
 ```bash
-dsh plugin --profile web add github:<你的用户名>/dsh-enter-swap
+dsh plugin --profile web add github:xuqiuba888/dsh-enter-swap
 ```
 
 其他 profile 同理（`--profile <名>`）。装完重启 dsh（Desktop/NEXT 重启应用），
