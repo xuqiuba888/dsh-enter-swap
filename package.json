@@ -1,6 +1,6 @@
 {
   "name": "dsh-enter-swap",
-  "description": "DSH web plugin: swap the composer keys - Enter inserts a newline, Shift+Enter sends. Ctrl/Cmd+Enter, Alt+Enter, IME composition and open menus keep native behavior.",
+  "description": "DSH (DeepSeek Harness) web plugin: Enter inserts a newline, Shift+Enter sends the message. 极简按键互换：Enter=换行，Shift+Enter=发送。",
   "version": "0.1.1",
   "license": "MIT",
   "type": "module",
@@ -10,12 +10,35 @@
     "./client": "./client/client.js",
     "./package.json": "./package.json"
   },
-  "files": ["lib", "client", "cordis.patch.yml", "README.md"],
-  "engines": { "node": ">=20" },
-  "keywords": ["dsh", "deepseek-harness", "dsh-plugin", "composer", "keybinding", "enter"],
+  "files": [
+    "lib",
+    "client",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "deepseek",
+    "composer",
+    "keybinding",
+    "enter",
+    "newline",
+    "web-plugin"
+  ],
   "dsh": {
-    "compatibility": { "node": ">=20" },
-    "bundle": { "patch": "./cordis.patch.yml" },
-    "client": { "platform": "web" }
+    "compatibility": {
+      "node": ">=20"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
   }
 }
