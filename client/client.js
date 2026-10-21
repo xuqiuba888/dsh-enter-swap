@@ -35,10 +35,19 @@ window.__ModuleLoader__.load({
       return event.isComposing === true || event.keyCode === 229
     }
 
-    /** True while a portaled candidate menu (slash/@) is open. */
+    /**
+     * True while a portaled candidate menu (slash/@) is OPEN. A portaled menu
+     * counts only when it is actually rendered: many engine dropdowns (the
+     * workspace picker on new-session, model menus) stay mounted under <body>
+     * after closing — hidden portals must not swallow the key swap.
+     */
     function menuOpen() {
       for (const el of document.querySelectorAll('[role="menu"], [role="listbox"]')) {
-        if (el.parentElement === document.body) return true
+        if (el.parentElement !== document.body) continue
+        if (el.hidden) continue
+        if (el.getAttribute('aria-hidden') === 'true') continue
+        if (el.getClientRects().length === 0) continue
+        return true
       }
       return false
     }
